@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import authService from '../services/authService';
-import { getPerson, getFilm, getPlanet, getSpecies, getVehicle } from '../services/swapiService';
+import { getPerson, getFilm, getPlanet, getSpecies, getVehicle, getStarship } from '../services/swapiService';
 import './Profile.css';
 
 const Profile = () => {
@@ -10,6 +10,7 @@ const Profile = () => {
   const [favoritePlanets, setFavoritePlanets] = useState([]);
   const [favoriteSpecies, setFavoriteSpecies] = useState([]);
   const [favoriteVehicles, setFavoriteVehicles] = useState([]);
+  const [favoriteStarships, setFavoriteStarships] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,6 +43,11 @@ const Profile = () => {
           userData.favoriteVehicles.map((id) => getVehicle(`https://swapi.dev/api/vehicles/${id}/`))
         );
         setFavoriteVehicles(favoriteVehiclesData);
+
+        const favoriteStarshipsData = await Promise.all(
+          userData.favoriteStarships.map((id) => getStarship(`https://swapi.dev/api/starships/${id}/`))
+        );
+        setFavoriteStarships(favoriteStarshipsData);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -87,6 +93,13 @@ const Profile = () => {
         setUser((prevUser) => ({
           ...prevUser,
           favoriteVehicles: updatedFavorites,
+        }));
+      } else if (type === 'starships') {
+        updatedFavorites = user.favoriteStarships.filter((id) => id !== itemId);
+        setFavoriteStarships((prev) => prev.filter((starship) => starship.url.split('/').filter(Boolean).pop() !== itemId));
+        setUser((prevUser) => ({
+          ...prevUser,
+          favoriteStarships: updatedFavorites,
         }));
       }
       await authService.updateFavorites({ [`favorite${type.charAt(0).toUpperCase() + type.slice(1)}`]: updatedFavorites });
@@ -175,7 +188,20 @@ const Profile = () => {
           </li>
         ))}
       </ul>
-      <p>Starships: {user.favoriteStarships ? user.favoriteStarships.join(', ') : ''}</p>
+      <p>Starships:</p>
+      <ul>
+        {favoriteStarships.map((starship) => (
+          <li key={starship.url} className="favorite-item">
+            {starship.name}
+            <button
+              onClick={() => removeFromFavorites(starship.url.split('/').filter(Boolean).pop(), 'starships')}
+              className="delete-button"
+            >
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

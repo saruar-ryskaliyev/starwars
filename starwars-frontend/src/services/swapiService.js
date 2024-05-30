@@ -133,3 +133,31 @@ export const getAllSpecies = async () => {
       throw error;
     }
   };
+
+  export const getAllStarships = async () => {
+    let allStarships = [];
+    let nextUrl = `${SWAPI_URL}/starships/?format=json`;
+  
+    while (nextUrl) {
+      try {
+        const response = await axios.get(nextUrl);
+        allStarships = [...allStarships, ...response.data.results];
+        nextUrl = response.data.next;
+      } catch (error) {
+        console.error('Error fetching starships:', error);
+        throw error;
+      }
+    }
+  
+    return allStarships;
+  };
+  
+  export const getStarship = async (url) => {
+    try {
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching starship:', error);
+      throw error;
+    }
+  };
