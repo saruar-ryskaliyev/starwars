@@ -1,0 +1,58 @@
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container h2,
+.profile-container h3 {
+  text-align: center;
+}
+
+.profile-container p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.profile-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.profile-container ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.profile-container ul li:hover {
+  background-color: #f1f1f1;
+}
+
+.profile-container .delete-button {
+  display: none;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile-container ul li:hover .delete-button {
+  display: inline-block;
+}
+
+.profile-container .delete-button:hover {
+  background-color: #c82333;
+}
