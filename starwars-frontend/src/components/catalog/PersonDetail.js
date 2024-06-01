@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPerson } from '../../services/swapiService';
 import authService from '../../services/authService';
-import Cookies from 'js-cookie';
+import './Detail.css'; // Import the CSS file
 
 const PersonDetail = () => {
   const { id } = useParams();
@@ -42,7 +42,7 @@ const PersonDetail = () => {
   }
 
   return (
-    <div>
+    <div className="detail-container">
       <h2>{person.name}</h2>
       <p>Height: {person.height}</p>
       <p>Mass: {person.mass}</p>

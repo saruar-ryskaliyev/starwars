@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getVehicle } from '../../services/swapiService';
 import authService from '../../services/authService';
+import './Detail.css'
 
 const VehicleDetail = () => {
   const { id } = useParams();
@@ -38,7 +39,7 @@ const VehicleDetail = () => {
   }
 
   return (
-    <div>
+    <div className='detail-container'>
       <h2>{vehicle.name}</h2>
       <p>Model: {vehicle.model}</p>
       <p>Manufacturer: {vehicle.manufacturer}</p>

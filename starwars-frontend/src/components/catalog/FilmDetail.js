@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getFilm } from '../../services/swapiService';
 import authService from '../../services/authService';
+import './Detail.css'; // Import the CSS file
 
 const FilmDetail = () => {
   const { id } = useParams();
@@ -38,7 +39,7 @@ const FilmDetail = () => {
   }
 
   return (
-    <div>
+    <div className="detail-container">
       <h2>{film.title}</h2>
       <p>Director: {film.director}</p>
       <p>Producer: {film.producer}</p>

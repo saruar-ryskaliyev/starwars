@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSearchCatalog } from '../services/searchService';
 import Cookies from 'js-cookie';
+import './catalog/Detail.css'
 
 const SearchResults = () => {
   const [results, setResults] = useState([]);
@@ -28,8 +29,8 @@ const SearchResults = () => {
     return parts[parts.length - 2];
   };
 
-  return (
-    <div>
+ return (
+    <div className="detail-container">
       <h2>Search Results for "{query}"</h2>
       {results.length === 0 ? (
         <p>No results found.</p>
@@ -41,6 +42,7 @@ const SearchResults = () => {
                 href={`/catalog/${result.type}/${getIdFromURL(result.url)}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="detail-link"
               >
                 {result.name} ({result.type})
               </a>

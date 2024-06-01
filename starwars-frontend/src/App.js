@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { AuthProvider } from './context/AuthContext'; // Corrected path
 import Login from './components/Login';
 import Profile from './components/Profile';
 import People from './components/catalog/People';
@@ -30,29 +31,31 @@ const App = () => {
   console.log("isAuthenticated:", isAuthenticated);
 
   return (
-    <Router>
-      <div>
-        {isAuthenticated && <Navbar setIsAuthenticated={setIsAuthenticated} />}
-        <Routes>
-          <Route path="/" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/catalog/films" element={<Films />} />
-          <Route path="/catalog/people" element={<People />} />
-          <Route path="/catalog/planets" element={<Planets />} />
-          <Route path="/catalog/species" element={<Species />} />
-          <Route path="/catalog/vehicles" element={<Vehicles />} />
-          <Route path="/catalog/starships" element={<Starships />} />
-          <Route path="/catalog/people/:id" element={<PersonDetail />} />
-          <Route path="/catalog/films/:id" element={<FilmDetail />} />
-          <Route path="/catalog/planets/:id" element={<PlanetDetail />} />
-          <Route path="/catalog/species/:id" element={<SpeciesDetail />} />
-          <Route path="/catalog/vehicles/:id" element={<VehicleDetail />} />
-          <Route path="/catalog/starships/:id" element={<StarshipDetail />} />
-          <Route path="/search" element={<SearchResults />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div>
+          {isAuthenticated && <Navbar setIsAuthenticated={setIsAuthenticated} />}
+          <Routes>
+            <Route path="/" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/catalog/films" element={<Films />} />
+            <Route path="/catalog/people" element={<People />} />
+            <Route path="/catalog/planets" element={<Planets />} />
+            <Route path="/catalog/species" element={<Species />} />
+            <Route path="/catalog/vehicles" element={<Vehicles />} />
+            <Route path="/catalog/starships" element={<Starships />} />
+            <Route path="/catalog/people/:id" element={<PersonDetail />} />
+            <Route path="/catalog/films/:id" element={<FilmDetail />} />
+            <Route path="/catalog/planets/:id" element={<PlanetDetail />} />
+            <Route path="/catalog/species/:id" element={<SpeciesDetail />} />
+            <Route path="/catalog/vehicles/:id" element={<VehicleDetail />} />
+            <Route path="/catalog/starships/:id" element={<StarshipDetail />} />
+            <Route path="/search" element={<SearchResults />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 };
 

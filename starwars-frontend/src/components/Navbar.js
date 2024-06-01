@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react'; // Added missing imports
 import { Link, useNavigate } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
+import { AuthContext } from '../context/AuthContext';
 import './Navbar.css';
 
-const Navbar = ({ setIsAuthenticated }) => {
+const Navbar = () => {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
 
   const handleLogout = () => {
-    document.cookie = 'token=; Max-Age=0'; 
+    Cookies.remove('token');
     setIsAuthenticated(false);
     navigate('/');
   };
@@ -59,9 +61,7 @@ const Navbar = ({ setIsAuthenticated }) => {
             onChange={handleSearchChange}
           />
         </li>
-
-        <li><button onClick={handleLogout}>Sign Out</button></li>
-
+        <li><button className="signout-button" onClick={handleLogout}>Sign Out</button></li>
       </ul>
     </nav>
   );

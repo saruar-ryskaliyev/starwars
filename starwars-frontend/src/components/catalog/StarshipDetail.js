@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getStarship } from '../../services/swapiService';
 import authService from '../../services/authService';
+import './Detail.css'
 
 const StarshipDetail = () => {
   const { id } = useParams();
@@ -38,7 +39,7 @@ const StarshipDetail = () => {
   }
 
   return (
-    <div>
+    <div className='detail-container'>
       <h2>{starship.name}</h2>
       <p>Model: {starship.model}</p>
       <p>Manufacturer: {starship.manufacturer}</p>

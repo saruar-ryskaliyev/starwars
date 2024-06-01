@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPlanet } from '../../services/swapiService';
 import authService from '../../services/authService';
+import './Detail.css';
 
 const PlanetDetail = () => {
   const { id } = useParams();
@@ -38,7 +39,7 @@ const PlanetDetail = () => {
   }
 
   return (
-    <div>
+    <div className='detail-container'>
       <h2>{planet.name}</h2>
       <p>Climate: {planet.climate}</p>
       <p>Diameter: {planet.diameter}</p>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getSpecies } from '../../services/swapiService';
 import authService from '../../services/authService';
+import './Detail.css'
 
 const SpeciesDetail = () => {
   const { id } = useParams();
@@ -38,7 +39,7 @@ const SpeciesDetail = () => {
   }
 
   return (
-    <div>
+    <div className='detail-container'>
       <h2>{species.name}</h2>
       <p>Classification: {species.classification}</p>
       <p>Designation: {species.designation}</p>

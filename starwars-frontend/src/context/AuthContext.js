@@ -1,15 +1,14 @@
-// src/context/AuthContext.js
+// AuthContext.js
 import React, { createContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!Cookies.get('token'));
 
   useEffect(() => {
     const token = Cookies.get('token');
-    console.log("Token in AuthProvider:", token);
     setIsAuthenticated(!!token);
   }, []);
 
