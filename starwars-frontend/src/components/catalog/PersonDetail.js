@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPerson } from '../../services/swapiService';
 import authService from '../../services/authService';
+import Cookies from 'js-cookie';
 
 const PersonDetail = () => {
   const { id } = useParams();
@@ -10,6 +11,7 @@ const PersonDetail = () => {
   useEffect(() => {
     const fetchPerson = async () => {
       try {
+        setPerson(null); // Reset person data on ID change or component remount
         const data = await getPerson(`https://swapi.dev/api/people/${id}/`);
         setPerson(data);
       } catch (error) {
@@ -18,9 +20,11 @@ const PersonDetail = () => {
     };
 
     fetchPerson();
-  }, [id]);
+  }, [id]); // Dependency array includes id to handle updates
 
   const addToFavorites = async () => {
+    if (!person) return; // Guard clause to prevent errors if person is null
+
     try {
       const userResponse = await authService.getCurrentUser();
       const user = userResponse.data;

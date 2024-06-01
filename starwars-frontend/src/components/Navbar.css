@@ -107,3 +107,22 @@ nav .center-buttons {
 .signout-button:hover {
   background-color: rgba(199, 220, 227, 0.267); /* Darker red */
 }
+
+.search-results {
+  position: absolute;
+  background-color: white;
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  z-index: 100;
+}
+
+.search-results li {
+  padding: 10px;
+  cursor: pointer;
+}
+.search-results li:hover {
+  background-color: #f0f0f0;
+}

@@ -13,6 +13,7 @@ const Profile = () => {
   const [favoriteStarships, setFavoriteStarships] = useState([]);
 
   useEffect(() => {
+
     const fetchUser = async () => {
       try {
         const response = await authService.getCurrentUser();

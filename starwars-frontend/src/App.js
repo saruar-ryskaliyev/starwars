@@ -15,35 +15,40 @@ import PlanetDetail from './components/catalog/PlanetDetail';
 import SpeciesDetail from './components/catalog/SpeciesDetail';
 import VehicleDetail from './components/catalog/VehicleDetail';
 import StarshipDetail from './components/catalog/StarshipDetail';
+import SearchResults from './components/SearchResults';
 import Navbar from './components/Navbar';
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!Cookies.get('token'));
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get('token');
+    console.log("Token:", token);
     setIsAuthenticated(!!token);
   }, []);
+
+  console.log("isAuthenticated:", isAuthenticated);
 
   return (
     <Router>
       <div>
         {isAuthenticated && <Navbar setIsAuthenticated={setIsAuthenticated} />}
         <Routes>
-          <Route path="/" element={isAuthenticated ? <Navigate to="/profile" /> : <Login setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/" />} />
-          <Route path="/catalog/films" element={isAuthenticated ? <Films /> : <Navigate to="/" />} />
-          <Route path="/catalog/people" element={isAuthenticated ? <People /> : <Navigate to="/" />} />
-          <Route path="/catalog/planets" element={isAuthenticated ? <Planets /> : <Navigate to="/" />} />
-          <Route path="/catalog/species" element={isAuthenticated ? <Species /> : <Navigate to="/" />} />
-          <Route path="/catalog/vehicles" element={isAuthenticated ? <Vehicles /> : <Navigate to="/" />} />
-          <Route path="/catalog/starships" element={isAuthenticated ? <Starships /> : <Navigate to="/" />} />
-          <Route path="/catalog/people/:id" element={isAuthenticated ? <PersonDetail /> : <Navigate to="/" />} />
-          <Route path="/catalog/films/:id" element={isAuthenticated ? <FilmDetail /> : <Navigate to="/" />} />
-          <Route path="/catalog/planets/:id" element={isAuthenticated ? <PlanetDetail /> : <Navigate to="/" />} />
-          <Route path="/catalog/species/:id" element={isAuthenticated ? <SpeciesDetail /> : <Navigate to="/" />} />
-          <Route path="/catalog/vehicles/:id" element={isAuthenticated ? <VehicleDetail /> : <Navigate to="/" />} />
-          <Route path="/catalog/starships/:id" element={isAuthenticated ? <StarshipDetail /> : <Navigate to="/" />} />
+          <Route path="/" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/catalog/films" element={<Films />} />
+          <Route path="/catalog/people" element={<People />} />
+          <Route path="/catalog/planets" element={<Planets />} />
+          <Route path="/catalog/species" element={<Species />} />
+          <Route path="/catalog/vehicles" element={<Vehicles />} />
+          <Route path="/catalog/starships" element={<Starships />} />
+          <Route path="/catalog/people/:id" element={<PersonDetail />} />
+          <Route path="/catalog/films/:id" element={<FilmDetail />} />
+          <Route path="/catalog/planets/:id" element={<PlanetDetail />} />
+          <Route path="/catalog/species/:id" element={<SpeciesDetail />} />
+          <Route path="/catalog/vehicles/:id" element={<VehicleDetail />} />
+          <Route path="/catalog/starships/:id" element={<StarshipDetail />} />
+          <Route path="/search" element={<SearchResults />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

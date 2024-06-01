@@ -1,20 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+
 import './Navbar.css';
 
 const Navbar = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
 
-  const handleSignout = () => {
-    Cookies.remove('token');
+  const handleLogout = () => {
+    document.cookie = 'token=; Max-Age=0'; 
     setIsAuthenticated(false);
     navigate('/');
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (debouncedQuery.trim()) {
+      navigate(`/search?q=${debouncedQuery}`);
+    }
+  }, [debouncedQuery, navigate]);
+
   return (
     <nav>
-      <ul>
+      <ul className="navbar">
         <li><Link to="/profile">Profile</Link></li>
         <li>
           <div className="dropdown">
@@ -30,11 +52,16 @@ const Navbar = ({ setIsAuthenticated }) => {
           </div>
         </li>
         <li>
-          <form>
-            <input type="text" placeholder="Search..." />
-          </form>
+          <input 
+            type="text" 
+            placeholder="Search..." 
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
         </li>
-        <li><button className="signout-button" onClick={handleSignout}>Signout</button></li>
+
+        <li><button onClick={handleLogout}>Sign Out</button></li>
+
       </ul>
     </nav>
   );
